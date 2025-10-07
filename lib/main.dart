@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'landing_page.dart'; // <-- tambahkan ini
+import 'landing_page.dart';
 
 void main() {
   runApp(
@@ -10,8 +10,16 @@ void main() {
         title: 'Crossword Builder',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorSchemeSeed: Colors.blueGrey,
-          brightness: Brightness.light,
+          scaffoldBackgroundColor: const Color(0xFF3A8C8C),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF3A8C8C),
+            brightness: Brightness.dark,
+            primary: const Color(0xFF3A8C8C),
+            onPrimary: Colors.white,
+            secondary: const Color(0xFFF2F2F2),
+            onSecondary: Colors.black,
+          ),
+          useMaterial3: true,
         ),
         home: LandingPage(), // mulai dari landing page
       ),

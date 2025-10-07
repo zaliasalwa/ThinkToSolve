@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:two_dimensional_scrollables/two_dimensional_scrollables.dart';
@@ -37,7 +38,7 @@ class CrosswordWidget extends ConsumerWidget {
             ),
           );
 
-          final explorationCell = ref.watch(               // Add from here
+          final explorationCell = ref.watch(
             workQueueProvider.select(
               (workQueueAsync) => workQueueAsync.when(
                 data: (workQueue) =>
@@ -46,52 +47,48 @@ class CrosswordWidget extends ConsumerWidget {
                 loading: () => false,
               ),
             ),
-          );                                               // To here.
+          );
 
-          if (character != null) {                         // Modify from here
+          if (character != null) {
             return AnimatedContainer(
               duration: Durations.extralong1,
               curve: Curves.easeInOut,
-              color: explorationCell
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.onPrimary,
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                color: explorationCell ? Colors.red.shade200 : Colors.white,
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
+              ),
               child: Center(
                 child: AnimatedDefaultTextStyle(
                   duration: Durations.extralong1,
                   curve: Curves.easeInOut,
                   style: TextStyle(
                     fontSize: 24,
-                    color: explorationCell
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.primary,
+                    color: explorationCell ? Colors.white : Colors.black,
                   ),
-                  child: Text(character.character),
-                ),                                          // To here.
+                  child: Text(character.character.toUpperCase()),
+                ),
               ),
             );
           }
 
-          return ColoredBox(
-            color: Theme.of(context).colorScheme.primaryContainer,
-          );
+          return const SizedBox.shrink();
         },
       ),
     );
   }
 
   TableSpan _buildSpan(BuildContext context, int index) {
-    return TableSpan(
-      extent: FixedTableSpanExtent(32),
-      foregroundDecoration: TableSpanDecoration(
-        border: TableSpanBorder(
-          leading: BorderSide(
-            color: Theme.of(context).colorScheme.onPrimaryContainer,
-          ),
-          trailing: BorderSide(
-            color: Theme.of(context).colorScheme.onPrimaryContainer,
-          ),
-        ),
-      ),
+    return const TableSpan(
+      extent: FixedTableSpanExtent(50),
     );
   }
 }
